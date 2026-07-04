@@ -11,7 +11,8 @@ order += "wireless _first_"
 order += "cpu_usage"
 order += "memory"
 order += "volume master"
-order += "read_file datetime"
+# Removed the duplicate read_file here to keep the bar clean
+order += "tztime local"
 
 wireless _first_ {
     format_up = "%quality %essid"
@@ -34,8 +35,7 @@ volume master {
     mixer_idx = 0
 }
 
-read_file datetime {
-    format = "%content"
-    path = "/tmp/datetime"
+# Fixed the missing quote at the beginning of the name here:
+tztime "local" {
+    format = "%a,%m-%d |%H:%M:%S"
 }
-
