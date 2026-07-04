@@ -34,3 +34,10 @@ alias y="yazi"
 # --- PLUGINS ---
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# opencode
+export PATH=/home/kloky/.opencode/bin:$PATH
+
+# >>> Codex installer >>>
+export PATH="/home/kloky/.local/bin:$PATH"
+# <<< Codex installer <<<

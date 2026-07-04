@@ -1,0 +1,41 @@
+general {
+    colors = true
+    interval = 5
+    color_good = "#a3be8c"
+    color_bad = "#bf616a"
+    color_degraded = "#ebcb8b"
+    color_separator = "#4c566a"
+}
+
+order += "wireless _first_"
+order += "cpu_usage"
+order += "memory"
+order += "volume master"
+order += "read_file datetime"
+
+wireless _first_ {
+    format_up = "%quality %essid"
+    format_down = "down"
+}
+
+cpu_usage {
+    format = " %usage"
+}
+
+memory {
+    format = " %percentage_used"
+}
+
+volume master {
+    format = "󰕾 %volume"
+    format_muted = "󰖁 muted"
+    device = "default"
+    mixer = "Master"
+    mixer_idx = 0
+}
+
+read_file datetime {
+    format = "%content"
+    path = "/tmp/datetime"
+}
+
