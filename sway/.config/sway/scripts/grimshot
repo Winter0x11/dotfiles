@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# Minimal grimshot replacement (grimshot ships in Arch's sway-contrib, not
+# installed here). Supports the subset used by the sway config:
+#   grimshot copy output|area|active
+set -euo pipefail
+
+notify() {
+    command -v notify-send >/dev/null 2>&1 && notify-send "Screenshot" "$1" || true
+}
+
+shot() { # shot <grim args...>
+    local target="/tmp/$(date +%s)-$RANDOM.png"
+    grim "$@" "$target"
+    wl-copy <"$target"
+    notify "Copied to clipboard"
+    rm -f "$target"
+}
+
+focused_output() {
+    swaymsg -t get_outputs -r | jq -r '.[] | select(.focused) | .name' | head -n1
+}
+
+focused_window_geometry() {
+    swaymsg -t get_tree -r | jq -r '
+        .. | objects | select(.focused? == true) | .rect
+        | "\(.x),\(.y) \(.width)x\(.height)"' | head -n1
+}
+
+cmd="${1:-copy}"
+what="${2:-area}"
+
+case "$cmd" in
+    copy | save)
+        case "$what" in
+            output) shot -o "$(focused_output)" ;;
+            active) shot -g "$(focused_window_geometry)" ;;
+            area | screen)
+                if [ "$what" = "area" ]; then
+                    geom="$(slurp || true)"
+                    [ -n "$geom" ] || exit 1 # selection cancelled
+                    shot -g "$geom"
+                else
+                    shot
+                fi
+                ;;
+            *) echo "usage: grimshot copy output|area|active" >&2; exit 2 ;;
+        esac
+        ;;
+    *)
+        echo "usage: grimshot copy output|area|active" >&2
+        exit 2
+        ;;
+esac
