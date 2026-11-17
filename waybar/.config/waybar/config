@@ -8,7 +8,7 @@
 
 	"modules-left": ["custom/power", "sway/workspaces"],
 	"modules-center": ["clock#date", "clock#time"],
-	"modules-right": ["cpu", "memory", "mpris", "tray", "wireplumber", "custom/notif"],
+	"modules-right": ["network", "cpu", "memory", "mpris", "tray", "wireplumber", "custom/notif"],
 
 	"custom/power": {
 		"format": "󰣇 ",
@@ -53,9 +53,11 @@
 		}
 	},
 	"network": {
-		"format-wifi": "  {signalStrength}%",
+		"format-wifi": "󰤨  {signalStrength}%",
 		"format-ethernet": "󰈀  Connected",
-		"format-disconnected": "  Offline"
+		"format-disconnected": "󰤭  Offline",
+		"tooltip-format-wifi": "{essid} ({signalStrength}%)",
+		"on-click": "nm-connection-editor"
 	},
 
 	"cpu": {

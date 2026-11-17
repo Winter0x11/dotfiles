@@ -5,7 +5,7 @@ exec "dbus-update-activation-environment --systemd XDG_CURRENT_DESKTOP=sway "
 # hyprpolkitagent is not installed here (polkit-gnome is used instead)
 # exec systemctl --user start hyprpolkitagent
 exec swaync
-exec swaybg -i ~/Pictures/Wallpapers/backwater.jpg -m fill
+exec swaybg -i ~/Pictures/Wallpapers/mountsunset.jpg -m fill
 
 # Author's external monitor (VGA-1 1600x900). This machine's panel is eDP-1,
 # so forcing this block would do nothing here — enable it only if you plug in
@@ -20,12 +20,17 @@ exec swaybg -i ~/Pictures/Wallpapers/backwater.jpg -m fill
 input * {
     xkb_layout "us"
     xkb_options "caps:escape_shifted_capslock"
-    repeat_delay 200
-    repeat_rate 40
+    repeat_delay 300
+    repeat_rate 20
     pointer_accel 0.0
     accel_profile "flat"
     scroll_method on_button_down
     scroll_button button2
+}
+
+# Natural (inverted) scrolling for the touchpad only
+input type:touchpad {
+    natural_scroll enabled
 }
 
 gaps inner 4
